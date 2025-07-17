@@ -1,0 +1,116 @@
+ <% layout("/layouts/boilerplate") %>
+
+<section class="hero-section">
+        <div class="container">
+            <div class="welcome-badge">
+                <i class="fas fa-star"></i> Welcome to HomeNook
+            </div>
+            <h1>Find Your Perfect Stay</h1>
+            <p>Discover unique places to stay around the world</p>
+            
+            <!-- Search Form -->
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <form class="search-form" action="/listings" method="GET">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="location" placeholder="Where are you going?">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="date" class="form-control" name="checkin" placeholder="Check-in">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="date" class="form-control" name="checkout" placeholder="Check-out">
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose HomeNook?</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h4>Unique Stays</h4>
+                        <p>Find extraordinary places to stay, from cozy cottages to luxury villas</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Safe & Secure</h4>
+                        <p>Your safety is our priority with verified hosts and secure payments</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h4>24/7 Support</h4>
+                        <p>Our support team is available around the clock to help you</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Listings Section -->
+    <section class="listings-section">
+        <div class="container">
+            <h2 class="section-title">Featured Listings</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="listing-card">
+                        <div class="listing-image" style="background-image: url('https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHRyYXZlbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60');">
+                        </div>
+                        <div class="listing-content">
+                            <h5 class="listing-title">Cozy Beachfront Cottage</h5>
+                            <p class="text-muted">Tropical paradise with palm trees and crystal clear waters</p>
+                            <div class="listing-price">₹1,500/Night</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="listing-card">
+                        <div class="listing-image" style="background-image: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHRyYXZlbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60');">
+                        </div>
+                        <div class="listing-content">
+                            <h5 class="listing-title">Modern Loft in Downtown</h5>
+                            <p class="text-muted">Stunning mountain lake views with modern amenities</p>
+                            <div class="listing-price">₹1,200/Night</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="listing-card">
+                        <div class="listing-image" style="background-image: url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');">
+                        </div>
+                        <div class="listing-content">
+                            <h5 class="listing-title">Mountain Retreat</h5>
+                            <p class="text-muted">Luxury mountain retreat with infinity pool and stunning views</p>
+                            <div class="listing-price">₹1,000/Night</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="/listings" class="btn btn-primary btn-lg">View All Listings</a>
+            </div>
+        </div>
+    </section>
