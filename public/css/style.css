@@ -278,30 +278,5 @@ body{
 }
 
 
-/* start styling */
-
-.star-rating {
-  direction: rtl;
-  font-size: 2rem;
-  display: flex;
-  gap: 0.4rem;
-  justify-content: center;
-}
-
-.star-rating input {
-  display: none;
-}
-
-.star-rating label {
-  color: #ccc;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.star-rating input:checked ~ label,
-.star-rating label:hover,
-.star-rating label:hover ~ label {
-  color: #ffc107;
-}
 
 /* review */

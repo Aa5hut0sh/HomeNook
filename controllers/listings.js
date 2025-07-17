@@ -52,9 +52,13 @@ module.exports.createListing = async (req , res , next)=>{
   //   throw new ExpressError(400, result.error)
   // }
 
+  let url = req.file.path;
+  let filename = req.file.filename;
+
+
   let listing = req.body.listing;
   const newListing = new Listing(listing);
-
+  newListing.image = {url,filename};
   newListing.owner = req.user._id;
 
 
@@ -70,13 +74,23 @@ module.exports.renderEditForm = async(req,res)=>{
 
   const listing = await Listing.findById(id);
 
-  res.render("listings/edit.ejs" , {listing});
+  let originalImage = listing.image.url;
+  originalImage = originalImage.replace("/upload" , "/upload/w_250")
+  res.render("listings/edit.ejs" , {listing , originalImage});
 };
 
 module.exports.updateListing = async(req,res)=>{
-  
   let {id} = req.params;
-  await Listing.findByIdAndUpdate(id ,{...req.body.listing} );
+  let listing =  await Listing.findByIdAndUpdate(id ,{...req.body.listing} );
+
+  if(typeof req.file !== 'undefined'){
+    let url = req.file.path;
+    let filename = req.file.filename;
+    listing.image = {url , filename};
+    await listing.save();
+  }
+  
+
   req.flash("success" , "Lsiting updated!");
   res.redirect(`/listings/${id}`);
 };
