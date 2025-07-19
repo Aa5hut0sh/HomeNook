@@ -107,6 +107,29 @@
 
     </div>
 
+    <h4>Where you'll be</h4>
+    <div id="map" style="height: 400px;" class="mb-4 rounded shadow-sm"></div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+
+     <script >
+        // Inject coordinates from EJS into JS
+        const coordinates = <%- JSON.stringify(listing.geometry.coordinates) %>;
+
+        const map = L.map('map').setView([coordinates[1], coordinates[0]], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        L.marker([coordinates[1], coordinates[0]])
+            .addTo(map)
+            .bindPopup('<%= listing.location %> ,<%= listing.country %> ')
+            .openPopup();
+    </script>
+
+    
     
 
 

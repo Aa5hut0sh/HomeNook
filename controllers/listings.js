@@ -52,6 +52,18 @@ module.exports.createListing = async (req , res , next)=>{
   //   throw new ExpressError(400, result.error)
   // }
 
+  const Mapurl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(req.body.listing.location)}`;
+
+  const response = await fetch(Mapurl);
+  const data = await response.json();
+
+  if (!data || data.length === 0) {
+    throw new Error("Location not found");
+  }
+
+  const lat = parseFloat(data[0].lat);
+  const lon = parseFloat(data[0].lon);
+
   let url = req.file.path;
   let filename = req.file.filename;
 
@@ -61,6 +73,11 @@ module.exports.createListing = async (req , res , next)=>{
   newListing.image = {url,filename};
   newListing.owner = req.user._id;
 
+    const geometry = {
+    type: "Point",
+    coordinates: [lon, lat] // GeoJSON expects [lng, lat]
+  };
+  newListing.geometry = geometry;
 
   await newListing.save();
   req.flash("success" , "New Lisiting Created!");
