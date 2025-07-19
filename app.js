@@ -84,15 +84,7 @@ app.use((req,res,next)=>{
   next();
 }); 
 
-// app.get("/demouser" , async(req , res)=>{
-//   let fakeUser = new User({
-//     email : "student@gmsil.com",
-//     username : "student"
-//   });
 
-//   let registeredUser =  await User.register(fakeUser , "helloworld" );
-//   res.send(registeredUser);
-// })
 
 
 app.use("/listings" , listings); 
@@ -101,13 +93,6 @@ app.use("/listings/:id/review" , reviews);
 
 app.use("/" , users);
 
-
-
-
-
-app.get("/" , (req,res)=>{
-  res.render("listings/home.ejs");
-})
 
 
 
