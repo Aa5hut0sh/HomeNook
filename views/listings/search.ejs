@@ -1,0 +1,31 @@
+<% layout("/layouts/boilerplate") %>
+
+<h3 class="mt-2 mb-2">Search result for <%= location %></h3>
+<% if(listings && listings.length){%>
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+            <% for(let listing of listings) {%>
+                <a href="/listings/<%=listing._id%>" class="listing-link">
+                    <div class="card cols listings-card">
+                        <div class="card-img-container">
+                            <img src="<%=listing.image.url%>" class="card-img-top" alt="Listing_img">
+                            <div class="card-img-overlay"></div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                <b><%= listing.title %></b><br>
+                                <div class="price" data-price="<%= listing.price %>">
+                                    <b>&#8377;<span class="price-value"><%= listing.price.toLocaleString("en-IN") %></span></b>/Night
+                                    <i class="tax-info">&nbsp;<u>total after taxes</u></i>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            <% } %>
+        </div>
+        <% }else{ %>
+            <div style="display: flex; justify-content: center; align-content: center;">
+                <p><b><i>No result found</i></b></p>
+            </div>
+            
+        <% } %>

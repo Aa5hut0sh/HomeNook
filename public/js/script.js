@@ -100,3 +100,9 @@ updateScrollButtons();
 window.addEventListener('resize', updateScrollButtons);
 
 
+window.addEventListener("DOMContentLoaded", () => {
+  const activeFilter = document.querySelector('.filter.active');
+  if (activeFilter) {
+    activeFilter.scrollIntoView({ behavior: "auto", inline: "center", block: "nearest" });
+  }
+});

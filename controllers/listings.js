@@ -4,7 +4,7 @@ const Listing = require("../models/listing.js");
 module.exports.index = async(req,res)=>{
   let allListings =  await Listing.find({});
 
-  res.render("listings/index.ejs" , {allListings});
+  res.render("listings/index.ejs" , {allListings , selectedCategory: "All"});
 
 };
 
@@ -96,21 +96,55 @@ module.exports.renderEditForm = async(req,res)=>{
   res.render("listings/edit.ejs" , {listing , originalImage});
 };
 
-module.exports.updateListing = async(req,res)=>{
-  let {id} = req.params;
-  let listing =  await Listing.findByIdAndUpdate(id ,{...req.body.listing} );
+module.exports.updateListing = async (req, res) => {
+  try {
+    let { id } = req.params;
 
-  if(typeof req.file !== 'undefined'){
-    let url = req.file.path;
-    let filename = req.file.filename;
-    listing.image = {url , filename};
-    await listing.save();
+    // Get updated location
+    const updatedLocation = req.body.listing.location;
+
+    // Geocode the new location
+    const mapUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(updatedLocation)}`;
+    const response = await fetch(mapUrl);
+    const data = await response.json();
+
+    if (!data || data.length === 0) {
+      throw new Error("Location not found");
+    }
+
+    // Extract coordinates
+    const lat = parseFloat(data[0].lat);
+    const lon = parseFloat(data[0].lon);
+
+    // Build the updated fields
+    const updatedFields = {
+      ...req.body.listing,
+      geometry: {
+        type: "Point",
+        coordinates: [lon, lat] // GeoJSON expects [longitude, latitude]
+      }
+    };
+
+    // If a new image was uploaded, add it
+    if (typeof req.file !== 'undefined') {
+      updatedFields.image = {
+        url: req.file.path,
+        filename: req.file.filename
+      };
+    }
+
+    // Update the listing
+    const listing = await Listing.findByIdAndUpdate(id, updatedFields, { new: true });
+
+    req.flash("success", "Listing updated!");
+    res.redirect(`/listings/${id}`);
+  } catch (err) {
+    console.error(err);
+    req.flash("error", "Failed to update listing.");
+    res.redirect("back");
   }
-  
-
-  req.flash("success" , "Lsiting updated!");
-  res.redirect(`/listings/${id}`);
 };
+
 
 module.exports.deleteListing = async(req,res)=>{
   let {id} = req.params;
@@ -118,4 +152,21 @@ module.exports.deleteListing = async(req,res)=>{
   await Listing.findByIdAndDelete(id);
   req.flash("success" , "Lsiting Deleted!");
   res.redirect("/listings");
+};
+
+
+module.exports.search = async(req,res)=>{
+
+    let {location} = req.query ;
+    let listings = await Listing.find({
+        location: { $regex: location, $options: 'i' }
+    });
+    res.render("listings/search.ejs" , {listings , location});
+
+};
+
+module.exports.filter = async (req, res) => {
+    const { category } = req.params;
+    const allListings = await Listing.find({ category: new RegExp(`^${category}$`, 'i') });
+    res.render("listings/index.ejs", { allListings , selectedCategory: category });
 };

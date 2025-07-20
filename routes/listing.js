@@ -21,6 +21,14 @@ router.get("/" , wrapAsync(listingController.index));
 
 router.get("/new" , isLogedIn, listingController.renederNewFrom);
 
+//search route
+
+router.get("/search" , wrapAsync(listingController.search));
+
+//filter
+
+router.get("/filter/:category", wrapAsync(listingController.filter));
+
 //Show Route
 
 router.get("/:id" , wrapAsync(listingController.showListing));
@@ -39,5 +47,7 @@ router.get("/:id/edit" , isLogedIn , isOwner , wrapAsync(listingController.rende
 router.put("/:id" , isLogedIn ,isOwner  , validateListing  , upload.single('listing[image]'), wrapAsync(listingController.updateListing));
 
 router.delete("/:id" , isLogedIn,isOwner , wrapAsync(listingController.deleteListing));
+
+
 
 module.exports = router;

@@ -23,7 +23,7 @@
                 <!-- Property Details -->
                 <div class="luxury-property-info">
                     <div class="luxury-property-header">
-                        <h2 class="luxury-property-subtitle">Entire home in <%=listing.location%>, <%=listing.country%></h2>
+                        <h2 class="luxury-property-subtitle"><%=listing.location%>, <%=listing.country%></h2>
                         <div class="luxury-property-stats">
                             <span>10 guests</span> • <span>3 bedrooms</span> • <span>3 beds</span> • <span>3 bathrooms</span>
                         </div>
@@ -169,15 +169,16 @@
                 <p class="starability-result card-text star-result" data-rating="<%= review.rating %>">
                         
                     </p>
-                <h6 class="card-text"><%=review.comment%></h6>
+                <h6 class="card-text mb-2"><%=review.comment%></h6>
                     
  
-                
+                <% if(currUser && currUser._id.equals(review.author._id)) {%>
                 <div class="d-flex justify-content-end">
                     <form class="mb-3 mt-2" method="post" action="/listings/<%=listing._id%>/review/<%=review._id%>?_method=DELETE">
                         <button class="btn btn-sm btn-dark">Delete</button>
                     </form>
                 </div>
+                <% } %>
             </div>
             </div>
 

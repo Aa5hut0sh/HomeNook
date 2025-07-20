@@ -863,10 +863,7 @@ footer {
     font-size: 0.8rem !important;
 }
 
-.starability-result .star-result {
-    font-size: 0.4rem !important;  /* Try 0.8rem, 1rem, etc. Adjust as needed */
-    display: inline-block;
-}
+
 
 /* map */
 

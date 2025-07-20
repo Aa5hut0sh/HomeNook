@@ -5,55 +5,72 @@
         <div id="filters">
             <div class="filter-scroll-wrapper">
                 <button class="scroll-btn left"><i class="fa-solid fa-chevron-left"></i></button>
+
                 <div class="filter-scroll">
-                    <div class="filter active">
-                        <div><i class="fa-solid fa-house"></i></i></div>
+                    
+                    <a href="/listings" class="filter <%= selectedCategory === 'All' ? 'active' : '' %>" style="text-decoration: none;">
+                        <div><i class="fa-solid fa-house"></i></div>
                         <p>All</p>
-                    </div>
-                    <div class="filter">
+                    </a>
+
+                    <a href="/listings/filter/Iconic Cities" class="filter <%= selectedCategory === 'Iconic Cities' ? 'active' : '' %>" style="text-decoration: none;">
                         <div><i class="fa-solid fa-mountain-city"></i></div>
                         <p>Iconic Cities</p>
-                    </div>
-                    <div class="filter">
+                    </a>
+
+                    <a href="/listings/filter/Mountains" class="filter <%= selectedCategory === 'Mountains' ? 'active' : '' %>" style="text-decoration: none;">
                         <div><i class="fa-solid fa-mountain"></i></div>
                         <p>Mountains</p>
-                    </div>
-                    <div class="filter">
+                    </a>
+
+                    <a href="/listings/filter/Castles" class="filter <%= selectedCategory === 'Castles' ? 'active' : '' %>" style="text-decoration: none;">
                         <div><i class="fa-solid fa-chess-rook"></i></div>
                         <p>Castles</p>
-                    </div>
-                    <div class="filter">
+                    </a>
+
+                    <a href="/listings/filter/Amazing Pools" class="filter <%= selectedCategory === 'Amazing Pools' ? 'active' : '' %>" style="text-decoration: none;">
                         <div><i class="fa-solid fa-person-swimming"></i></div>
                         <p>Amazing Pools</p>
-                    </div>
-                    <div class="filter">
+                    </a>
+
+                    <a href="/listings/filter/Camping" class="filter <%= selectedCategory === 'Camping' ? 'active' : '' %>" style="text-decoration: none;">
                         <div><i class="fa-solid fa-binoculars"></i></div>
                         <p>Camping</p>
-                    </div>
-                    <div class="filter">
+                    </a>
+
+                    <a href="/listings/filter/Farms" class="filter <%= selectedCategory === 'Farms' ? 'active' : '' %>" style="text-decoration: none;">
                         <div><i class="fa-solid fa-wheat-awn"></i></div>
                         <p>Farms</p>
-                    </div>
-                    <div class="filter">
+                    </a>
+
+                    <a href="/listings/filter/Arctic" class="filter <%= selectedCategory === 'Arctic' ? 'active' : '' %>" style="text-decoration: none;">
                         <div><i class="fa-solid fa-snowflake"></i></div>
                         <p>Arctic</p>
-                    </div>
-                    <div class="filter">
+                    </a>
+
+                    <a href="/listings/filter/Domes" class="filter <%= selectedCategory === 'Domes' ? 'active' : '' %>" style="text-decoration: none;">
                         <div><i class="fa-solid fa-tents"></i></div>
                         <p>Domes</p>
-                    </div>
-                    <div class="filter">
+                    </a>
+
+                    <a href="/listings/filter/Boats" class="filter <%= selectedCategory === 'Boats' ? 'active' : '' %>" style="text-decoration: none;">
                         <div><i class="fa-solid fa-sailboat"></i></div>
                         <p>Boats</p>
-                    </div>
-                    <div class="filter">
+                    </a>
+
+                    <a href="/listings/filter/Beach" class="filter <%= selectedCategory === 'Beach' ? 'active' : '' %>" style="text-decoration: none;">
                         <div><i class="fa-solid fa-umbrella-beach"></i></div>
                         <p>Beach</p>
-                    </div>
-                    <div class="filter">
+                    </a>
+
+                    <a href="/listings/filter/Forest" class="filter <%= selectedCategory === 'Forest' ? 'active' : '' %>" style="text-decoration: none;">
                         <div><i class="fa-solid fa-tree"></i></div>
-                        <p>Forests</p>
-                    </div>
+                        <p>Forest</p>
+                    </a>
+
+
+
+
                 </div>
                 <button class="scroll-btn right"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
@@ -85,7 +102,19 @@
                     </div>
                 </a>
             <% } %>
+
+
+           
+
         </div>
+
+         <% if (allListings.length === 0) { %>
+                <div class="text-center my-5">
+                    <h4 class="text-muted">No listings available for this category.</h4>
+                </div>
+            <% } %>
+
+        
 
 
 
