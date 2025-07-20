@@ -14,6 +14,7 @@ const ejsMate = require("ejs-mate");
 
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 
 
@@ -38,22 +39,32 @@ app.use(express.static(path.join(__dirname,"public")));
 
 
 
-
-
+const dbUrl = process.env.ATLASDB_URL;
 
 main().then(()=>{
     console.log("connection Sucessful");
     }).catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/homenook');
+  await mongoose.connect(dbUrl);
 
 }
 
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  crypto :{
+    secret: process.env.SECRET,
+  },
+  touchAfter : 24*3600,
+});
 
+store.on("error" , ()=>{
+  console.log("ERROR IN MONGO SESSION STORE")
+})
 
 const sessionOptions = {
-  secret : "mySecretCode",
+  store,
+  secret : process.env.SECRET,
   resave : false,
   saveUninitialized : true,
   cookie :{
@@ -63,6 +74,8 @@ const sessionOptions = {
   }
 
 };
+
+
 
 app.use(session(sessionOptions));
 app.use(flash());
