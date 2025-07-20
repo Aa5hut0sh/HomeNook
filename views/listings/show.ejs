@@ -2,42 +2,131 @@
 <body>
     
     
-    <div class="row mt-3">
-        <div class="col-8 offset-2">
-
-        
-
-    <div class="card col-6 offset-3 show-card listings-card">
-        <h3><%=listing.title%></h3>
-        <img src="<%=listing.image.url%>" class="card-img-top show-img" alt="Property_image" >
-        <div class="card-body">
-            <p class="card-text">
-                Owned by <i><%= listing.owner.username  %></i>
-                <br>
-                <br>
-                <%=listing.description%><br>
-                &#8377;<%=listing.price.toLocaleString("en-IN")%><br>
-                <%=listing.location%><br>
-                <%=listing.country%><br>
-
-            </p>
+    <div class="luxury-property-container">
+        <!-- Header Section -->
+        <div class="luxury-header">
+            <div class="luxury-title-section">
+                <h1 class="luxury-property-title"><%=listing.title%></h1>
+            </div>
         </div>
 
-    </div>
+        <!-- Image Gallery Section -->
+        <div class="luxury-gallery">
+            <div class="luxury-main-image">
+                <img src="<%=listing.image.url%>" alt="<%=listing.title%>" class="luxury-hero-img">
+            </div>
+        </div>
 
-    <% if(currUser && currUser._id.equals(listing.owner._id)) {%>
-    <div class=" btns offset-3 col-4">
-        <a href="http://localhost:8080/listings/<%=listing._id%>/edit"><button class="btn btn-dark offset-1 add-btn">Edit</button></a>
-        <form method="POST"  action="http://localhost:8080/listings/<%=listing._id%>?_method=DELETE">
-            <button class="btn btn-dark  offset-5">Delete</button>
-        </form>
-    </div>
-    <% } %>
+        <!-- Main Content Section -->
+        <div class="luxury-content-wrapper">
+            <div class="luxury-main-content">
+                <!-- Property Details -->
+                <div class="luxury-property-info">
+                    <div class="luxury-property-header">
+                        <h2 class="luxury-property-subtitle">Entire home in <%=listing.location%>, <%=listing.country%></h2>
+                        <div class="luxury-property-stats">
+                            <span>10 guests</span> • <span>3 bedrooms</span> • <span>3 beds</span> • <span>3 bathrooms</span>
+                        </div>
+                    </div>
 
+                    <!-- Host Information -->
+                    <div class="luxury-host-info">
+                        <div class="luxury-host-details">
+                            <div class="luxury-host-name">Hosted by <%=listing.owner.username%></div>
+                        </div>
+                    </div>
+
+                    <!-- Property Features -->
+                    <div class="luxury-features">
+                        <div class="luxury-feature">
+                            <div class="luxury-feature-icon">
+                                <i class="fas fa-snowflake"></i>
+                            </div>
+                            <div class="luxury-feature-content">
+                                <div class="luxury-feature-title">Designed for staying cool</div>
+                                <div class="luxury-feature-desc">Beat the heat with the A/C and ceiling fan.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="luxury-feature">
+                            <div class="luxury-feature-icon">
+                                <i class="fas fa-key"></i>
+                            </div>
+                            <div class="luxury-feature-content">
+                                <div class="luxury-feature-title">Self check-in</div>
+                                <div class="luxury-feature-desc">Check yourself in with the keypad.</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <!-- Description -->
+                    <div class="luxury-description">
+                        <p><%=listing.description%></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Card -->
+            <div class="luxury-booking-card">
+                <div class="luxury-price-section">
+                    <div class="luxury-price">
+                        <span class="luxury-price-strike">₹10,140</span>
+                        <span class="luxury-price-current">₹<%=listing.price.toLocaleString("en-IN")%></span>
+                        <span class="luxury-price-period">for 1 nights</span>
+                    </div>
+                    <div class="luxury-price-note">
+                        <i class="fas fa-heart" style="color: #ff385c;"></i>
+                        Price before tax
+                    </div>
+                </div>
+
+                <div class="luxury-booking-form">
+                    <div class="luxury-date-inputs">
+                        <div class="luxury-date-input">
+                            <label>CHECK-IN</label>
+                            <input type="date" value="2025-07-25">
+                        </div>
+                        <div class="luxury-date-input">
+                            <label>CHECKOUT</label>
+                            <input type="date" value="2025-07-27">
+                        </div>
+                    </div>
+                    
+                    <div class="luxury-guests-input">
+                        <label>GUESTS</label>
+                        <select>
+                            <option>1 guest</option>
+                            <option>2 guests</option>
+                            <option>3 guests</option>
+                            <option>4 guests</option>
+                        </select>
+                    </div>
+
+                    <div class="luxury-no-charge">You won't be charged yet</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons for Owner -->
+        <% if(currUser && currUser._id.equals(listing.owner._id)) {%>
+        <div class="luxury-owner-actions">
+            <a href="http://localhost:8080/listings/<%=listing._id%>/edit">
+                <button class="luxury-edit-btn">
+                    <i class="fas fa-edit"></i> Edit Property
+                </button>
+            </a>
+            <form method="POST" action="http://localhost:8080/listings/<%=listing._id%>?_method=DELETE" style="display: inline;">
+                <button class="luxury-delete-btn" >
+                    <i class="fas fa-trash"></i> Delete Property
+                </button>
+            </form>
+        </div>
+        <% } %>
     </div>
 
        
-    <div class="col-8 offset-3 mb-3">
+    <div class="col-10 offset-1 mb-3">
          <hr>
          <% if(currUser) { %>
         <h4>Leave a Review</h4>
@@ -74,10 +163,10 @@
     <h4>All Reviews</h4>
     <div class="row">
         <% for(review of listing.reviews){ %>
-            <div class="card col-5 ms-2 mb-3">
+            <div class="card col-5 ms-2 mb-3 me-4">
             <div class="card-body">
                 <h5 class="card-title">@<%= review.author.username %></h5>
-                <p class="starability-result card-text" data-rating="<%= review.rating %>">
+                <p class="starability-result card-text star-result" data-rating="<%= review.rating %>">
                         
                     </p>
                 <h6 class="card-text"><%=review.comment%></h6>
@@ -107,8 +196,12 @@
 
     </div>
 
-    <h4>Where you'll be</h4>
-    <div id="map" style="height: 400px;" class="mb-4 rounded shadow-sm"></div>
+    <div class="container">
+        <h4>Where you'll be</h4>
+        <div id="map" style="height: 400px;" class="mb-4 rounded shadow-sm"></div>
+    </div>
+
+    
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>

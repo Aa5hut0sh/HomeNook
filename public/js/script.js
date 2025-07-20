@@ -21,13 +21,82 @@
 
 let taxSwitch = document.getElementById("switchCheckDefault");
 
-taxSwitch.addEventListener("click" , ()=>{
-  let taxInfo =  document.querySelectorAll(".tax-info");
-    for(info of taxInfo ){
-      if(info.style.display!="inline"){
-        info.style.display="inline";
-      }else{
-        info.style.display="none";
-      }
-    }
-})
+taxSwitch.addEventListener("click", () => {
+    let prices = document.querySelectorAll(".price");
+
+    prices.forEach((priceDiv) => {
+        const originalPrice = parseFloat(priceDiv.dataset.price);
+        const priceValueSpan = priceDiv.querySelector(".price-value");
+        const taxInfo = priceDiv.querySelector(".tax-info");
+
+        if (taxSwitch.checked) {
+           
+            const totalPrice = Math.round(originalPrice * 1.18);
+            priceValueSpan.textContent = totalPrice.toLocaleString("en-IN");
+             
+             taxInfo.style.display = "inline";
+        } else {
+            
+            priceValueSpan.textContent = originalPrice.toLocaleString("en-IN");
+            
+            taxInfo.style.display = "none";
+        }
+    });
+});
+
+
+
+const scrollContainer = document.querySelector('.filter-scroll');
+const leftBtn = document.querySelector('.scroll-btn.left');
+const rightBtn = document.querySelector('.scroll-btn.right');
+const filters = document.querySelectorAll('.filter');
+
+
+function updateScrollButtons() {
+  const scrollLeft = scrollContainer.scrollLeft;
+  const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+
+ 
+  if (scrollLeft <= 0) {
+    leftBtn.classList.add('hidden');
+  } else {
+    leftBtn.classList.remove('hidden');
+  }
+
+ 
+  if (scrollLeft >= maxScrollLeft - 1) { // -1 for rounding issues
+    rightBtn.classList.add('hidden');
+  } else {
+    rightBtn.classList.remove('hidden');
+  }
+}
+
+
+scrollContainer.addEventListener('scroll', updateScrollButtons);
+
+
+leftBtn.addEventListener('click', () => {
+  scrollContainer.scrollBy({ left: -200, behavior: 'smooth' });
+});
+
+rightBtn.addEventListener('click', () => {
+  scrollContainer.scrollBy({ left: 200, behavior: 'smooth' });
+});
+
+// Filter click handlers
+filters.forEach(filter => {
+  filter.addEventListener('click', () => {
+    
+    filters.forEach(f => f.classList.remove('active'));
+    
+    filter.classList.add('active');
+  });
+});
+
+
+updateScrollButtons();
+
+
+window.addEventListener('resize', updateScrollButtons);
+
+
