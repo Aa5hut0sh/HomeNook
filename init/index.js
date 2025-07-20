@@ -43,7 +43,7 @@ const initDB = async () => {
 
     const newListing = new Listing({
       ...obj,
-      owner: "6876522ecf470969ae65c06f", // your default owner ID
+      owner: "687d16d7ba9c9883c2d8d842", // your default owner ID
       geometry, // add the geoJSON object
     });
 

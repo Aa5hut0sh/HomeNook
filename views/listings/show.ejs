@@ -111,12 +111,12 @@
         <!-- Action Buttons for Owner -->
         <% if(currUser && currUser._id.equals(listing.owner._id)) {%>
         <div class="luxury-owner-actions">
-            <a href="http://localhost:8080/listings/<%=listing._id%>/edit">
+            <a href="/listings/<%=listing._id%>/edit">
                 <button class="luxury-edit-btn">
                     <i class="fas fa-edit"></i> Edit Property
                 </button>
             </a>
-            <form method="POST" action="http://localhost:8080/listings/<%=listing._id%>?_method=DELETE" style="display: inline;">
+            <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE" style="display: inline;">
                 <button class="luxury-delete-btn" >
                     <i class="fas fa-trash"></i> Delete Property
                 </button>
